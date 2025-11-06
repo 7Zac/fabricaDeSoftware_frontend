@@ -1,5 +1,4 @@
 import Image from "next/image";
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
@@ -11,6 +10,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import QueueList from "@/app/components/QueueList";
+import DirectionDialog from "@/app/components/Direction";
 
 interface newPatient {
   name: string;
@@ -38,16 +38,15 @@ const AddPatientPage = () => {
           >
             Sair
           </Button>
-          <Avatar>
-            <AvatarFallback className="bg-green-500 text-white">
-              G
-            </AvatarFallback>
-          </Avatar>
-          <Avatar>
-            <AvatarFallback className="bg-teal-500 text-white">
-              S
-            </AvatarFallback>
-          </Avatar>
+
+          <Button className="bg-[#00B49F]">
+            <a href="#">G</a>
+          </Button>
+
+          <Button className="bg-green-500">
+            <a href="#">S</a>
+          </Button>
+
         </div>
       </header>
 
@@ -131,9 +130,7 @@ const AddPatientPage = () => {
 
           {/* Botões de Ação */}
           <div className="flex justify-end space-x-2 mt-6">
-            <Button className="bg-teal-500 hover:bg-teal-600 text-white">
-              Direcionar
-            </Button>
+            <DirectionDialog/>
             <Button
               variant="outline"
               className="border-teal-500 text-teal-500 hover:bg-teal-50"
