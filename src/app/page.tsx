@@ -4,7 +4,7 @@ import Login from "./components/login";
 
 const Dashboard = () => {
   return (
-    <div className="w-full flex flex-col justify-center items-center">
+    <div className="w-full h-screen flex flex-col justify-center items-center">
       <Image
             alt="Logomarca"
             src="./Logo.svg"

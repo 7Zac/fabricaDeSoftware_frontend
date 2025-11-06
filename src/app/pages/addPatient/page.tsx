@@ -3,8 +3,22 @@ import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import QueueList from "@/app/components/QueueList";
+
+interface newPatient {
+  name: string;
+  status: string;
+  isPriority: boolean;
+  timeCreate: string;
+  timeStart: string;
+}
 
 const AddPatientPage = () => {
   return (
@@ -12,23 +26,27 @@ const AddPatientPage = () => {
       {/* Cabeçalho */}
       <header className="flex items-center justify-between p-4 bg-white shadow-md">
         <div className="flex items-center space-x-2">
-          <Image
-            alt="Logomarca"
-            src="/Logo.svg"
-            width="50"
-            height="50"
-          />
-          <span className="text-lg font-semibold text-teal-600">CLINICA Saúde</span>
+          <Image alt="Logomarca" src="/Logo.svg" width="50" height="50" />
+          <span className="text-lg font-semibold text-teal-600">
+            CLINICA Saúde
+          </span>
         </div>
         <div className="flex items-center space-x-4">
-          <Button variant="outline" className="text-teal-600 border-teal-600 hover:bg-teal-50">
+          <Button
+            variant="outline"
+            className="text-teal-600 border-teal-600 hover:bg-teal-50"
+          >
             Sair
           </Button>
           <Avatar>
-            <AvatarFallback className="bg-green-500 text-white">G</AvatarFallback>
+            <AvatarFallback className="bg-green-500 text-white">
+              G
+            </AvatarFallback>
           </Avatar>
           <Avatar>
-            <AvatarFallback className="bg-teal-500 text-white">S</AvatarFallback>
+            <AvatarFallback className="bg-teal-500 text-white">
+              S
+            </AvatarFallback>
           </Avatar>
         </div>
       </header>
@@ -47,25 +65,33 @@ const AddPatientPage = () => {
           <div className="grid grid-cols-2 gap-4">
             {/* Nome Completo */}
             <div className="col-span-2">
-              <Label htmlFor="nomeCompleto">Nome Completo:</Label>
-              <Input id="nomeCompleto" value="maria juarez felizardo" readOnly />
+              <Label className="mb-2" htmlFor="nomeCompleto">
+                Nome Completo:
+              </Label>
+              <Input id="nomeCompleto" readOnly />
             </div>
 
             {/* Atendimento Preferencial? */}
             <div>
-              <Label htmlFor="atendimentoPreferencial">Atendimento Preferencial?</Label>
-              <Input id="atendimentoPreferencial" value="Não" readOnly />
+              <Label className="mb-2" htmlFor="atendimentoPreferencial">
+                Atendimento Preferencial?
+              </Label>
+              <Input id="atendimentoPreferencial" readOnly />
             </div>
 
             {/* Atendimento para: */}
             <div>
-              <Label htmlFor="atendimentoPara">Atendimento para:</Label>
-              <Input id="atendimentoPara" value="Adulto" readOnly />
+              <Label className="mb-2" htmlFor="atendimentoPara">
+                Atendimento para:
+              </Label>
+              <Input id="atendimentoPara" value="" readOnly />
             </div>
 
             {/* Setor solicitado */}
             <div>
-              <Label htmlFor="setorSolicitado">Setor solicitado</Label>
+              <Label className="mb-2" htmlFor="setorSolicitado">
+                Setor solicitado
+              </Label>
               <Select>
                 <SelectTrigger className="w-full">
                   <SelectValue placeholder="Selecione" />
@@ -80,28 +106,43 @@ const AddPatientPage = () => {
 
             {/* Horário da criação da senha */}
             <div>
-              <Label htmlFor="horarioSenha">Horário da criação da senha</Label>
-              <Input id="horarioSenha" value="07:00" readOnly />
+              <Label className="mb-2" htmlFor="horarioSenha">
+                Horário da criação da senha
+              </Label>
+              <Input type="time" id="horarioSenha" value="" readOnly />
             </div>
 
             {/* Horário de chegada */}
             <div>
-              <Label htmlFor="horarioChegada">Horário de chegada</Label>
-              <Input id="horarioChegada" />
+              <Label className="mb-2" htmlFor="horarioChegada">
+                Horário de chegada
+              </Label>
+              <Input type="time" id="horarioChegada" />
             </div>
 
             {/* Senha */}
             <div>
-              <Label htmlFor="senha">Senha</Label>
+              <Label className="mb-2" htmlFor="senha">
+                Senha
+              </Label>
               <Input id="senha" />
             </div>
           </div>
 
           {/* Botões de Ação */}
           <div className="flex justify-end space-x-2 mt-6">
-            <Button className="bg-teal-500 hover:bg-teal-600 text-white">Direcionar</Button>
-            <Button variant="outline" className="border-teal-500 text-teal-500 hover:bg-teal-50">Stand-by</Button>
-            <Button className="bg-teal-500 hover:bg-teal-600 text-white">Finalizar</Button>
+            <Button className="bg-teal-500 hover:bg-teal-600 text-white">
+              Direcionar
+            </Button>
+            <Button
+              variant="outline"
+              className="border-teal-500 text-teal-500 hover:bg-teal-50"
+            >
+              Stand-by
+            </Button>
+            <Button className="bg-teal-500 hover:bg-teal-600 text-white">
+              Finalizar
+            </Button>
           </div>
         </div>
       </main>
