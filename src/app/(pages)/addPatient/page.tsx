@@ -1,3 +1,5 @@
+"use client";
+import { useState } from "react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
@@ -11,7 +13,7 @@ import {
 } from "@/components/ui/select";
 import QueueList from "@/app/components/QueueList";
 import DirectionDialog from "@/app/components/Direction";
-import QueueList_Standby from "@/app/components/Queuelist_Standby";
+import QueueList_Standby from "@/app/components/QueueList_Standby";
 
 interface newPatient {
   name: string;
@@ -22,6 +24,20 @@ interface newPatient {
 }
 
 const AddPatientPage = () => {
+  const [isStandby, setIsStandby] = useState(false);
+
+  const handleStandby = () => {
+    setIsStandby(true);
+  };
+
+  const handleReturnAttendance = () => {
+    setIsStandby(false);
+  };
+
+  const handleCallNext = () => {
+    console.log("Chamar o próximo"); // substituir pela lógica real
+  };
+
   return (
     <div className="flex flex-col min-h-screen bg-gray-100">
       {/* Cabeçalho */}
@@ -54,8 +70,9 @@ const AddPatientPage = () => {
       <main className="flex-1 flex p-4 space-x-4">
         {/* Seção FILA */}
         <div className="w-1/3 bg-white rounded-lg shadow-md p-4">
-          <QueueList_Standby />
+          {isStandby ? <QueueList_Standby /> : <QueueList />}
         </div>
+        
 
         {/* Seção PACIENTE */}
         <div className="w-2/3 bg-white rounded-lg shadow-md p-4">
@@ -130,12 +147,15 @@ const AddPatientPage = () => {
           {/* Botões de Ação */}
           <div className="flex justify-end space-x-2 mt-6">
             <DirectionDialog />
-            <Button
-              variant="outline"
-              className="border-teal-500 text-teal-500 hover:bg-teal-50"
-            >
-              Stand-by
-            </Button>
+            {!isStandby && (
+              <Button
+                onClick={handleStandby}
+                variant="outline"
+                className="border-teal-500 text-teal-500 hover:bg-teal-50"
+              >
+                Stand-by
+              </Button>
+            )}
             <Button className="bg-teal-500 hover:bg-teal-600 text-white">
               Finalizar
             </Button>
@@ -143,12 +163,26 @@ const AddPatientPage = () => {
         </div>
       </main>
 
-      {/* Botão Flutuante */}
-      <div className="fixed bottom-8 right-8">
-        <Button className="bg-teal-500 hover:bg-teal-600 text-white text-lg px-8 py-4 rounded-full shadow-lg">
-          Chamar o Próximo
-        </Button>
-      </div>
+       {/* Botões Flutuantes */}
+      {isStandby ? (
+        <div className="fixed bottom-8 right-8">
+          <Button
+            onClick={handleReturnAttendance}
+            className="bg-teal-500 hover:bg-teal-600 text-white text-lg px-8 py-4 rounded-full shadow-lg"
+          >
+            Retornar Atendimento
+          </Button>
+        </div>
+      ) : (
+        <div className="fixed bottom-8 right-8">
+          <Button
+            onClick={handleCallNext}
+            className="bg-teal-500 hover:bg-teal-600 text-white text-lg px-8 py-4 rounded-full shadow-lg"
+          >
+            Chamar o Próximo
+          </Button>
+        </div>
+      )}
     </div>
   );
 };
