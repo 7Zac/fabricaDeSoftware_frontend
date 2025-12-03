@@ -11,6 +11,7 @@ import {
 } from "@/components/ui/select";
 import QueueList from "@/app/components/QueueList";
 import DirectionDialog from "@/app/components/Direction";
+import QueueList_Standby from "@/app/components/Queuelist_Standby";
 
 interface newPatient {
   name: string;
@@ -46,7 +47,6 @@ const AddPatientPage = () => {
           <Button className="bg-green-500">
             <a href="#">S</a>
           </Button>
-
         </div>
       </header>
 
@@ -54,8 +54,7 @@ const AddPatientPage = () => {
       <main className="flex-1 flex p-4 space-x-4">
         {/* Seção FILA */}
         <div className="w-1/3 bg-white rounded-lg shadow-md p-4">
-          <h2 className="text-xl font-semibold mb-4 text-gray-700">FILA</h2>
-          <QueueList />
+          <QueueList_Standby />
         </div>
 
         {/* Seção PACIENTE */}
@@ -130,7 +129,7 @@ const AddPatientPage = () => {
 
           {/* Botões de Ação */}
           <div className="flex justify-end space-x-2 mt-6">
-            <DirectionDialog/>
+            <DirectionDialog />
             <Button
               variant="outline"
               className="border-teal-500 text-teal-500 hover:bg-teal-50"
