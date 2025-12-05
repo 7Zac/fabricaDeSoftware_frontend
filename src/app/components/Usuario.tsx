@@ -10,12 +10,12 @@ import {
 } from "@/components/ui/select";
 import DirectionDialog from "@/app/components/Direction";
 
-const Paciente = () => {
+const Usuario = () => {
   return (
     <>
-        {/* Seção PACIENTE */}
+        {/* Seção USUÁRIO */}
         <div className="w-2/3 bg-white rounded-lg shadow-md p-4">
-          <h2 className="text-xl font-semibold mb-4 text-gray-700">PACIENTE</h2>
+          <h2 className="text-xl font-semibold mb-4 text-gray-700">USUÁRIO</h2>
           <div className="grid grid-cols-2 gap-4">
             {/* Nome Completo */}
             <div className="col-span-2">
@@ -27,18 +27,18 @@ const Paciente = () => {
 
             {/* Atendimento Preferencial? */}
             <div>
-              <Label className="mb-2" htmlFor="atendimentoPreferencial">
-                Atendimento Preferencial?
+              <Label className="mb-2" htmlFor="cpf">
+                CPF
               </Label>
-              <Input id="atendimentoPreferencial" readOnly />
+              <Input id="cpf" readOnly />
             </div>
 
             {/* Atendimento para: */}
             <div>
-              <Label className="mb-2" htmlFor="atendimentoPara">
-                Atendimento para:
+              <Label className="mb-2" htmlFor="dataNascimento">
+                Data de Nascimento
               </Label>
-              <Input id="atendimentoPara" value="" readOnly />
+              <Input id="dataNascimento" value="" readOnly />
             </div>
 
             {/* Setor solicitado */}
@@ -101,4 +101,4 @@ const Paciente = () => {
   );
 };
 
-export default Paciente;
+export default Usuario;
