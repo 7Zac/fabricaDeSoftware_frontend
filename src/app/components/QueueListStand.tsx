@@ -1,0 +1,32 @@
+import React from 'react';
+
+interface QueuePatient {
+  name: string;
+  code: string;
+  status: string;
+  isPriority: boolean;
+}
+
+const QueueListStand = () => {
+  const queuePatients: QueuePatient[] = [
+    { code: 'C001', name: 'Marcus José', status: 'Normal', isPriority: false },
+    { code: 'W001', name: 'Jukes Gomes', status: 'Prioridade', isPriority: true },
+    { code: 'V002', name: 'Larissa Gau', status: 'Normal', isPriority: false },
+  ];
+
+  return (
+    <div className="space-y-2">
+      {queuePatients.map((item, index) => (
+        <div key={index} className="flex items-center justify-between p-3 bg-gray-100 rounded-md shadow-sm">
+          <span className="font-medium text-gray-800">{item.code}</span>
+          <span className="font-medium text-gray-800">{item.name}</span>
+          <span className={item.isPriority ? "text-red-500 font-semibold" : "text-gray-600"}>
+            {item.status}
+          </span>
+        </div>
+      ))}
+    </div>
+  );
+};
+
+export default QueueListStand;
