@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import QueueList from "@/app/components/QueueList";
 import QueueListStand from "@/app/components/QueueListStand";
@@ -8,17 +7,9 @@ import Paciente from "@/app/components/Paciente";
 import PacienteStand from "@/app/components/PacienteStand";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import AddPatientPage from "../addPatient/page";
-import HeaderGuiche from "@/app/components/HeaderGuiche";
 import HeaderResultados from "@/app/components/HeaderResultados";
 
-interface newPatient {
-  name: string;
-  status: string;
-  isPriority: boolean;
-  timeCreate: string;
-  timeStart: string;
-}
+
 
 const ResultadosPage = () => {
   const [activeTab, setActiveTab] = useState<"R" | "S">("R");

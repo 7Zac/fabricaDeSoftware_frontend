@@ -1,9 +1,7 @@
 import { Button } from "@/components/ui/button";
 import {
   Card,
-  CardAction,
   CardContent,
-  CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
@@ -15,7 +13,7 @@ const Login = () => {
   return (
     <Card className="w-full max-w-sm gap-6">
       <CardHeader className="flex justify-center">
-        <CardTitle>Login to your account</CardTitle>
+        <CardTitle>Entre para continuar</CardTitle>
       </CardHeader>
       <CardContent>
         <form>
@@ -25,13 +23,13 @@ const Login = () => {
               <Input
                 id="email"
                 type="email"
-                placeholder="m@example.com"
+                placeholder="email@exemplo.com"
                 required
               />
             </div>
             <div className="grid gap-2">
               <div className="flex items-center">
-                <Label htmlFor="password">Password</Label>
+                <Label htmlFor="password">Senha</Label>
               </div>
               <Input id="password" type="password" required />
             </div>
@@ -40,7 +38,7 @@ const Login = () => {
       </CardContent>
       <CardFooter className="flex-col gap-2">
         <Button type="submit" className="w-full">
-          Login
+          Entrar
         </Button>
       </CardFooter>
     </Card>

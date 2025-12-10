@@ -1,5 +1,5 @@
 "use client";
-import Image from "next/image";
+
 import { Button } from "@/components/ui/button";
 import QueueList from "@/app/components/QueueList";
 import QueueListStand from "@/app/components/QueueListStand";

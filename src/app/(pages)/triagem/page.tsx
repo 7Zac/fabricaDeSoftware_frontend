@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import QueueList from "@/app/components/QueueList";
 import QueueListStand from "@/app/components/QueueListStand";
@@ -8,17 +7,8 @@ import Paciente from "@/app/components/Paciente";
 import PacienteStand from "@/app/components/PacienteStand";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import AddPatientPage from "../addPatient/page";
-import HeaderGuiche from "@/app/components/HeaderGuiche";
-import HeaderTriagem from "@/app/components/HeaderTriagem";
 
-interface newPatient {
-  name: string;
-  status: string;
-  isPriority: boolean;
-  timeCreate: string;
-  timeStart: string;
-}
+import HeaderTriagem from "@/app/components/HeaderTriagem";
 
 const TriagemPage = () => {
   const [activeTab, setActiveTab] = useState<"T" | "S">("T");
@@ -26,7 +16,7 @@ const TriagemPage = () => {
   return (
     <div className="flex flex-col min-h-screen bg-gray-100 transition-all duration-500 overflow-hidden">
       {/* Cabeçalho */}
-     <HeaderTriagem activeTab={activeTab} setActiveTab={setActiveTab} />
+      <HeaderTriagem activeTab={activeTab} setActiveTab={setActiveTab} />
       {/* Conteúdo Principal */}
       <main className="flex-1 flex p-4 space-x-4 relative overflow-hidden">
         <AnimatePresence mode="wait">
