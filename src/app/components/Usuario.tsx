@@ -85,15 +85,8 @@ const Usuario = () => {
 
           {/* Botões de Ação */}
           <div className="flex justify-end space-x-2 mt-6">
-            <DirectionDialog/>
-            <Button
-              variant="outline"
-              className="border-teal-500 text-teal-500 hover:bg-teal-50"
-            >
-              Stand-by
-            </Button>
             <Button className="bg-teal-500 hover:bg-teal-600 text-white">
-              Finalizar
+              Atualizar
             </Button>
           </div>
         </div>

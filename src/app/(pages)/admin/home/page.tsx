@@ -8,6 +8,7 @@ import Usuario from "@/app/components/Usuario";
 
 
 import HeaderAdmin from "@/app/components/HeaderAdmin";
+import Anuncio from "@/app/components/Anuncio";
 
 interface newUser {
   name: string;
@@ -34,7 +35,7 @@ const AdminHomePage = () => {
               </div>
 
               {/* Seção PACIENTE */}
-              <Usuario />
+              <Anuncio />
       </main>
     </div>
   );
