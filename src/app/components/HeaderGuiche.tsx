@@ -14,7 +14,7 @@ const HeaderGuiche = ({ activeTab, setActiveTab }: HeaderGuicheProps) => {
       <div className="flex items-center space-x-2">
         <Image alt="Logomarca" src="/Logo.svg" width="50" height="50" />
         <span className="text-lg font-semibold text-teal-600">
-          CLINICA Saúde
+          CLINICA SAÚDE
         </span>
       </div>
 
