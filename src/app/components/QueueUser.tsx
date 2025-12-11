@@ -18,10 +18,12 @@ const QueueUser = () => {
   const [showNewUser, setShowNewUser] = useState(false);
   const [showUpdateUser, setShowUpdateUser] = useState(false);
   const [atendentes, setAtendentes] = useState<Atendente[]>([]);
+  const [isLoading, setIsLoading] = useState(true); // Adicionando estado de carregamento
 
   useEffect(() => {
     const fetchAtendentes = async () => {
       try {
+        setIsLoading(true); // Inicia o carregamento
         const response = await fetch("https://fabrica-kqdb.onrender.com/api/atendente");
         if (!response.ok) {
           throw new Error(`Erro HTTP! Status: ${response.status}`);
@@ -30,6 +32,8 @@ const QueueUser = () => {
         setAtendentes(data);
       } catch (error) {
         console.error("Erro ao buscar atendentes:", error);
+      } finally {
+        setIsLoading(false); // Finaliza o carregamento, independentemente do sucesso ou erro
       }
     };
 
@@ -45,36 +49,46 @@ const QueueUser = () => {
     <div className="bg-white rounded-lg  w-full mx-auto flex flex-col h-[73vh]">
       {/* Lista */}
       <div className="space-y-2 flex-1 overflow-y-auto">
-        {atendentes.map((item) => (
-          <div
-            key={item.id}
-            className="flex items-center justify-between p-3 bg-gray-100 rounded-md shadow-sm"
-          >
-            <span className="font-semibold text-gray-800 w-1/4">{item.id}</span>
-            <span className="font-medium text-gray-800 w-1/2 text-center">
-              {item.nome}
-            </span>
-            <span className="text-gray-600 w-1/4 text-right">{item.login}</span>
-             {/* Ícones de ação */}
-              <div className="flex items-center justify-end space-x-3 w-1/5">
-                <button
-                  onClick={() => setShowUpdateUser(true)}
-                  className="text-teal-500 hover:text-teal-600 transition"
-                  title="Editar usuário"
-                >
-                  <Pencil size={20} />
-                </button>
-                
-                <button
-                  onClick={() => handleDelete(item.id)}
-                  className="text-teal-500 hover:text-teal-600 transition"
-                  title="Excluir usuário"
-                >
-                  <Trash2 size={20} />
-                </button>
-              </div>
+        {isLoading ? (
+          <div className="flex justify-center items-center h-full">
+            <p className="text-gray-500 text-lg">Aguardando conexão com o servidor...</p>
           </div>
-        ))}
+        ) : atendentes.length === 0 ? (
+          <div className="flex justify-center items-center h-full">
+            <p className="text-gray-500 text-lg">Nenhum atendente cadastrado.</p>
+          </div>
+        ) : (
+          atendentes.map((item) => (
+            <div
+              key={item.id}
+              className="flex items-center justify-between p-3 bg-gray-100 rounded-md shadow-sm"
+            >
+              <span className="font-semibold text-gray-800 w-1/4">{item.id}</span>
+              <span className="font-medium text-gray-800 w-1/2 text-center">
+                {item.nome}
+              </span>
+              <span className="text-gray-600 w-1/4 text-right">{item.login}</span>
+               {/* Ícones de ação */}
+                <div className="flex items-center justify-end space-x-3 w-1/5">
+                  <button
+                    onClick={() => setShowUpdateUser(true)}
+                    className="text-teal-500 hover:text-teal-600 transition"
+                    title="Editar usuário"
+                  >
+                    <Pencil size={20} />
+                  </button>
+                  
+                  <button
+                    onClick={() => handleDelete(item.id)}
+                    className="text-teal-500 hover:text-teal-600 transition"
+                    title="Excluir usuário"
+                  >
+                    <Trash2 size={20} />
+                  </button>
+                </div>
+            </div>
+          ))
+        )}
       </div>
 
       {/* Botão para abrir o modal */}
