@@ -61,6 +61,16 @@ const Anuncio = () => {
         <Button
           className={`${
             selected
+              ? "bg-green-500 hover:bg-green-700 text-white"
+              : "bg-gray-300 text-gray-600 cursor-not-allowed "
+          }`}
+          disabled={!selected}
+        >
+          Modificar
+        </Button>
+        <Button
+          className={`${
+            selected
               ? "bg-teal-500 hover:bg-teal-600 text-white"
               : "bg-gray-300 text-gray-600 cursor-not-allowed"
           }`}
