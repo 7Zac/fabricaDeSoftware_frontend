@@ -49,7 +49,7 @@ const NewUser = () => {
       <h2 className="text-2xl font-semibold mb-6 text-gray-800">NOVO USUÁRIO</h2>
 
       {/* Grid de campos */}
-      <div className="grid grid-cols-2 gap-5 flex-1 overflow-auto">
+      <div className="grid flex-col gap-10">
         {/* Nome Completo */}
         <div className="col-span-2">
           <Label className="mb-1 block" htmlFor="nome">
@@ -61,7 +61,7 @@ const NewUser = () => {
         {/* Login (Email) */}
         <div className="col-span-2">
           <Label className="mb-1 block" htmlFor="login">
-            Login (Email):
+            Email:
           </Label>
           <Input id="login" type="email" placeholder="Digite o email" value={login} onChange={(e) => setLogin(e.target.value)} />
         </div>
