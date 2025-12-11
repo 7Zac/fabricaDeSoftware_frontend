@@ -40,9 +40,34 @@ const QueueUser = () => {
     fetchAtendentes();
   }, []);
 
-  const handleDelete = (id: string) => {
-    console.log("Excluir atendente:", id);
-    // Lógica para excluir o atendente da API
+  const handleDelete = async (id: string) => {
+    if (window.confirm("Tem certeza que deseja excluir este atendente?")) {
+      try {
+        const authToken = localStorage.getItem("authToken"); // Recupera o token do localStorage
+
+        if (!authToken) {
+          alert("Token de autenticação não encontrado. Faça login novamente.");
+          return;
+        }
+
+        const response = await fetch(`https://fabrica-kqdb.onrender.com/api/atendente/${id}`, {
+          method: "DELETE",
+          headers: {
+            "Authorization": `Bearer ${authToken}`, // Adiciona o token ao cabeçalho
+          },
+        });
+
+        if (!response.ok) {
+          throw new Error(`Erro HTTP! Status: ${response.status}`);
+        }
+
+        console.log("Atendente excluído com sucesso:", id);
+        // Atualiza a lista de atendentes após a exclusão
+        setAtendentes(atendentes.filter(atendente => atendente.id !== id));
+      } catch (error) {
+        console.error("Erro ao excluir atendente:", error);
+      }
+    }
   };
 
   return (
