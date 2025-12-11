@@ -1,47 +1,60 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import NewUser from "@/app/components/NewUser";
 import { Pencil, Trash2 } from "lucide-react";
 import UpdateUser from "./UpdateUser";
 
-interface QueuePatient {
-  name: string;
-  code: string;
-  Setor: string;
+interface Atendente {
+  id: string;
+  nome: string;
+  login: string;
+  ativo: boolean;
 }
 
 const QueueUser = () => {
   const [showNewUser, setShowNewUser] = useState(false);
   const [showUpdateUser, setShowUpdateUser] = useState(false);
+  const [atendentes, setAtendentes] = useState<Atendente[]>([]);
 
+  useEffect(() => {
+    const fetchAtendentes = async () => {
+      try {
+        const response = await fetch("https://fabrica-kqdb.onrender.com/api/atendente");
+        if (!response.ok) {
+          throw new Error(`Erro HTTP! Status: ${response.status}`);
+        }
+        const data: Atendente[] = await response.json();
+        setAtendentes(data);
+      } catch (error) {
+        console.error("Erro ao buscar atendentes:", error);
+      }
+    };
 
-  const handleDelete = (code: string) => {
-    console.log("Excluir usuário:", code);
+    fetchAtendentes();
+  }, []);
+
+  const handleDelete = (id: string) => {
+    console.log("Excluir atendente:", id);
+    // Lógica para excluir o atendente da API
   };
-
-  const queuePatients: QueuePatient[] = [
-    { code: "U001", name: "Joana Dark", Setor: "Guiche" },
-    { code: "U003", name: "Maria da Silva", Setor: "Triagem" },
-    { code: "U002", name: "José Luiz", Setor: "Guiche" },
-  ];
 
   return (
     <div className="bg-white rounded-lg  w-full mx-auto flex flex-col h-[73vh]">
       {/* Lista */}
       <div className="space-y-2 flex-1 overflow-y-auto">
-        {queuePatients.map((item, index) => (
+        {atendentes.map((item) => (
           <div
-            key={index}
+            key={item.id}
             className="flex items-center justify-between p-3 bg-gray-100 rounded-md shadow-sm"
           >
-            <span className="font-semibold text-gray-800 w-1/4">{item.code}</span>
+            <span className="font-semibold text-gray-800 w-1/4">{item.id}</span>
             <span className="font-medium text-gray-800 w-1/2 text-center">
-              {item.name}
+              {item.nome}
             </span>
-            <span className="text-gray-600 w-1/4 text-right">{item.Setor}</span>
+            <span className="text-gray-600 w-1/4 text-right">{item.login}</span>
              {/* Ícones de ação */}
               <div className="flex items-center justify-end space-x-3 w-1/5">
                 <button
@@ -53,7 +66,7 @@ const QueueUser = () => {
                 </button>
                 
                 <button
-                  onClick={() => handleDelete(item.code)}
+                  onClick={() => handleDelete(item.id)}
                   className="text-teal-500 hover:text-teal-600 transition"
                   title="Excluir usuário"
                 >
