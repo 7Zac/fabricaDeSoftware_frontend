@@ -17,9 +17,6 @@ const QueueUser = () => {
   const [showNewUser, setShowNewUser] = useState(false);
   const [showUpdateUser, setShowUpdateUser] = useState(false);
 
-    const handleEdit = (code: string) => {
-    console.log("Editar usuário:", code);
-  };
 
   const handleDelete = (code: string) => {
     console.log("Excluir usuário:", code);

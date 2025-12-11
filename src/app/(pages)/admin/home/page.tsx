@@ -1,22 +1,14 @@
 "use client";
-import { Button } from "@/components/ui/button";
+
 import QueueUser from "@/app/components/QueueUser";
 
-import Usuario from "@/app/components/Usuario";
+
 
 
 
 
 import HeaderAdmin from "@/app/components/HeaderAdmin";
 import Anuncio from "@/app/components/Anuncio";
-
-interface newUser {
-  name: string;
-  status: string;
-  isPriority: boolean;
-  timeCreate: string;
-  timeStart: string;
-}
 
 const AdminHomePage = () => {
 
