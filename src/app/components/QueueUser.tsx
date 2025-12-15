@@ -12,6 +12,9 @@ interface Atendente {
   nome: string;
   login: string;
   ativo: boolean;
+  admin: string | null; // Pode ser 'ADMIN' ou null
+  fkSetor: string;
+  createdAt: string;
 }
 
 const QueueUser = () => {
@@ -19,15 +22,14 @@ const QueueUser = () => {
   const [showUpdateUser, setShowUpdateUser] = useState(false);
   const [atendentes, setAtendentes] = useState<Atendente[]>([]);
   const [isLoading, setIsLoading] = useState(true); // Adicionando estado de carregamento
+ 
 
   useEffect(() => {
     const fetchAtendentes = async () => {
       try {
         setIsLoading(true); // Inicia o carregamento
         const response = await fetch("https://fabrica-kqdb.onrender.com/api/atendente");
-        if (!response.ok) {
-          throw new Error(`Erro HTTP! Status: ${response.status}`);
-        }
+        
         const data: Atendente[] = await response.json();
         setAtendentes(data);
       } catch (error) {
@@ -43,18 +45,9 @@ const QueueUser = () => {
   const handleDelete = async (id: string) => {
     if (window.confirm("Tem certeza que deseja excluir este atendente?")) {
       try {
-        const authToken = localStorage.getItem("authToken"); // Recupera o token do localStorage
-
-        if (!authToken) {
-          alert("Token de autenticação não encontrado. Faça login novamente.");
-          return;
-        }
-
+        // Token de autenticação removido para testes de cadastro
         const response = await fetch(`https://fabrica-kqdb.onrender.com/api/atendente/${id}`, {
           method: "DELETE",
-          headers: {
-            "Authorization": `Bearer ${authToken}`, // Adiciona o token ao cabeçalho
-          },
         });
 
         if (!response.ok) {
