@@ -21,7 +21,7 @@ const QueueUser = () => {
   const [showNewUser, setShowNewUser] = useState(false);
   const [showUpdateUser, setShowUpdateUser] = useState(false);
   const [atendentes, setAtendentes] = useState<Atendente[]>([]);
-  const [isLoading, setIsLoading] = useState(true); // Adicionando estado de carregamento
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchAtendentes = async () => {
@@ -36,7 +36,7 @@ const QueueUser = () => {
       } catch (error) {
         console.error("Erro ao buscar atendentes:", error);
       } finally {
-        setIsLoading(false); // Finaliza o carregamento, independentemente do sucesso ou erro
+        setIsLoading(false);
       }
     };
 

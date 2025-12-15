@@ -2,19 +2,61 @@ import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Checkbox } from "@/components/ui/checkbox";
+
+interface Setor {
+  id: string;
+  nomeSetor: string;
+  isPrimeiroContato: boolean;
+  createdAt: string;
+  updatedAt: string;
+}
 
 const NewUser = () => {
   const [nome, setNome] = useState("");
   const [login, setLogin] = useState("");
   const [senha, setSenha] = useState("");
+  const [admin, setAdmin] = useState<string | null>(null);
+  const [ativo, setAtivo] = useState(true);
+  const [setorUuid, setSetorUuid] = useState<string>("");
+  const [setores, setSetores] = useState<Setor[]>([]);
+
+  useEffect(() => {
+    const fetchSetores = async () => {
+      try {
+        const response = await fetch("https://fabrica-kqdb.onrender.com/api/setor");
+        if (!response.ok) {
+          throw new Error(`Erro HTTP! Status: ${response.status}`);
+        }
+        const data: Setor[] = await response.json();
+        setSetores(data);
+        if (data.length > 0) {
+          setSetorUuid(data[0].id);
+        }
+      } catch (error) {
+        console.error("Erro ao buscar setores:", error);
+      }
+    };
+    fetchSetores();
+  }, []);
+
 
   const handleSubmit = async () => {
     const userData = {
       nome,
       login,
       senha,
-      ativo: true, // Assumindo que novos usuários são criados como ativos por padrão
+      ativo,
+      admin: admin === "ADMIN" ? "ADMIN" : null,
+      setorUuid,
     };
 
     try {
@@ -58,21 +100,50 @@ const NewUser = () => {
           <Input id="nome" placeholder="Digite o nome completo" value={nome} onChange={(e) => setNome(e.target.value)} />
         </div>
 
-        {/* Login (Email) */}
+        
         <div className="col-span-2">
           <Label className="mb-1 block" htmlFor="login">
-            Login (Email):
+            Login:
           </Label>
-          <Input id="login" type="email" placeholder="Digite o email" value={login} onChange={(e) => setLogin(e.target.value)} />
+          <Input id="login" type="email" placeholder="Exemplo: nome.sobrenome" value={login} onChange={(e) => setLogin(e.target.value)} />
         </div>
 
-        {/* Senha */}
         <div className="col-span-2">
           <Label className="mb-1 block" htmlFor="senha">
             Senha:
           </Label>
           <Input id="senha" type="password" placeholder="Digite a senha" value={senha} onChange={(e) => setSenha(e.target.value)} />
         </div>
+
+        {/* Admin */}
+        <div className="col-span-1 flex items-center space-x-2">
+          <Checkbox id="admin" checked={admin === "ADMIN"} onCheckedChange={(checked) => setAdmin(checked ? "ADMIN" : null)} />
+          <Label htmlFor="admin">Administrador</Label>
+        </div>
+
+        {/* Ativo */}
+        <div className="col-span-1 flex items-center space-x-2">
+          <Checkbox id="ativo" checked={ativo} onCheckedChange={(checked) => setAtivo(checked ? true : false)} />
+          <Label htmlFor="ativo">Ativo</Label>
+        </div>
+
+        {/* Setor */}
+        <div className="col-span-2">
+          <Label className="mb-1 block" htmlFor="setor">Setor:</Label>
+          <Select onValueChange={(value) => setSetorUuid(value)} value={setorUuid}>
+            <SelectTrigger className="w-full">
+              <SelectValue placeholder="Selecione um setor" />
+            </SelectTrigger>
+            <SelectContent>
+              {setores.map((setor) => (
+                <SelectItem key={setor.id} value={setor.id}>
+                  {setor.nomeSetor}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
+
       </div>
 
       {/* Botão de ação */}
