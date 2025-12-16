@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { toast } from "sonner";
 import { Checkbox } from "@/components/ui/checkbox";
 
 interface CreateSetorProps {
@@ -37,7 +38,7 @@ const CreateSetor: React.FC<CreateSetorProps> = ({ onClose, onSuccess }) => {
       }
 
       await response.json();
-      setMessage("Setor criado com sucesso!");
+      toast.success("Setor criado com sucesso!");
       setNomeSetor("");
       setIsPrimeiroContato(false);
       onSuccess(); // Chama a função de sucesso para atualizar a lista de setores, se houver
@@ -80,19 +81,19 @@ const CreateSetor: React.FC<CreateSetorProps> = ({ onClose, onSuccess }) => {
           </div>
           <div className="flex justify-end space-x-3 mt-6">
             <Button
+              type="submit"
+              className="px-4 py-2 bg-teal-500 text-white rounded-md hover:bg-teal-600"
+              disabled={loading}
+            >
+              {loading ? "Criando..." : "Criar Setor"}
+            </Button>
+            <Button
               type="button"
               variant="outline"
               onClick={onClose}
               className="px-4 py-2 text-gray-700 bg-gray-200 rounded-md hover:bg-gray-300"
             >
               Cancelar
-            </Button>
-            <Button
-              type="submit"
-              className="px-4 py-2 bg-teal-500 text-white rounded-md hover:bg-teal-600"
-              disabled={loading}
-            >
-              {loading ? "Criando..." : "Criar Setor"}
             </Button>
           </div>
         </form>
