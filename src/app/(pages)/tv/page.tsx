@@ -25,23 +25,25 @@ const TVPage = () => {
         {/* Medical Image - Medical Professionals */}
         <div className="absolute right-0 top-0 w-2,5/5 h-full z-0">
           <Image
-            src="/image 2 (1).svg"
+            width={1000}
+            height={1000}
+            src="/image2(1).svg"
             alt="Medical Professionals"
-            className="h-full w-full object-cover opacity-60"
+            className="h-full w-full opacity-60"
           />
         </div>
 
         {/* Dark Overlay on Right */}
-        <div className="absolute right-0 top-0 w-1/3 h-1/2 bg-slate-900/70 z-1" />
+        <div className="absolute opacity-80 right-0 top-0 w-1/3 h-1/2 bg-gray-600 z-1" />
 
         {/* Decorative Diagonal Lines Pattern */}
-        <div
+        {/* <div
           className="absolute right-0 top-0 w-2/5 h-full z-1 opacity-5"
           style={{
             backgroundImage:
               "repeating-linear-gradient(45deg, transparent, transparent 20px, rgba(148, 163, 184, 0.3) 20px, rgba(148, 163, 184, 0.3) 40px)",
           }}
-        />
+        /> */}
 
         {/* Content */}
         <div className="relative z-10 flex-1 flex flex-col">
