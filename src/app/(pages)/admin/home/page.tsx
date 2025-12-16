@@ -4,7 +4,7 @@ import QueueUser from "@/app/components/QueueUser";
 
 import HeaderAdmin from "@/app/components/HeaderAdmin";
 import Anuncio from "@/app/components/Anuncio";
-import Setor from "../createSetor/page";
+import Setor from "../setor/page";
 
 
 const AdminHomePage = () => {
