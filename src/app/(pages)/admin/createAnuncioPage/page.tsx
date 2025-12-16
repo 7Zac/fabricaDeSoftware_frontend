@@ -1,7 +1,6 @@
 "use client";
 
 import HeaderAdmin from "@/app/components/HeaderAdmin";
-
 import CreateAnuncio from "@/app/components/CreateAnuncio";
 
 const CreateAnuncioPage = () => {
