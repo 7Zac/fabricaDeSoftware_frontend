@@ -128,7 +128,7 @@ const QueueUser = () => {
           ))
         )}
       </div>
-
+          
       {/* Botão para abrir o modal */}
       <div className="flex justify-end mt-4">
         <Button
