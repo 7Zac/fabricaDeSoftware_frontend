@@ -11,39 +11,43 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 const Login = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [login, setLogin] = useState("");
+  const [senha, setSenha] = useState("");
   const router = useRouter();
 
   const handleLoginSubmit = async (event: React.FormEvent) => {
-    event.preventDefault(); // Evita o recarregamento da página
+    event.preventDefault();
 
     try {
-      const response = await fetch("https://fabrica-kqdb.onrender.com/api/login", { // Rota de login corrigida
+      const response = await fetch("https://fabrica-kqdb.onrender.com/api/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ login: email, senha: password }), // Assumindo que o login espera 'login' e 'senha'
+        body: JSON.stringify({ login: login, senha: senha }),
       });
 
       if (response.ok) {
         const data = await response.json();
-        // Supondo que a API retorna um token na resposta de sucesso. Ajuste conforme a sua API.
         if (data && data.token) {
           localStorage.setItem("authToken", data.token); // Armazenar o token
         }
-        alert("Login bem-sucedido!");
-        router.push("/admin/home"); // Redireciona para a página admin/home
+        toast.success("Login bem-sucedido!");
+        if (data.admin === "ADMIN") {
+          router.push("/admin/home"); 
+        } else {
+          router.push("/triagem");
+        }
       } else {
         const errorData = await response.json();
-        alert(`Erro de login: ${errorData.message || response.statusText}`);
+        toast.error(`Erro de login: ${errorData.message || response.statusText}`);
       }
     } catch (error) {
       console.error("Erro ao tentar fazer login:", error);
-      alert("Ocorreu um erro ao tentar fazer login.");
+      toast.error("Ocorreu um erro ao tentar fazer login.");
     }
   };
 
@@ -56,14 +60,14 @@ const Login = () => {
         <form id="login-form" onSubmit={handleLoginSubmit}> {/* Adiciona o onSubmit ao formulário */}
           <div className="flex flex-col gap-6">
             <div className="grid gap-2">
-              <Label htmlFor="email">Email</Label>
+              <Label htmlFor="Login">Login</Label>
               <Input
-                id="email"
-                type="email"
-                placeholder="email@exemplo.com"
+                id="login"
+                type="text"
+                placeholder="Ex: nome.sobrenome"
                 required
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                value={login}
+                onChange={(e) => setLogin(e.target.value)}
               />
             </div>
             <div className="grid gap-2">
@@ -74,8 +78,8 @@ const Login = () => {
                 id="password"
                 type="password"
                 required
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                value={senha}
+                onChange={(e) => setSenha(e.target.value)}
               />
             </div>
           </div>
