@@ -26,7 +26,7 @@ export default function Token() {
             className="flex flex-col items-center gap-4"
           >
             <Image
-              src="/logo-clinica.svg"
+              src="/Logo.svg"
               alt="Logo da Clínica"
               width={100}
               height={100}
@@ -59,7 +59,7 @@ export default function Token() {
             className="flex flex-col items-center bg-white shadow-xl rounded-2xl p-8 w-[90%] max-w-md"
           >
             <Image
-              src="/logo-clinica.svg"
+              src="/Logo.svg"
               alt="Logo da Clínica"
               width={100}
               height={100}
@@ -195,7 +195,7 @@ export default function Token() {
             className="flex flex-col items-center gap-6 text-center"
           >
             <Image
-              src="/logo-clinica.svg"
+              src="/Logo.svg"
               alt="Logo da Clínica"
               width={100}
               height={100}

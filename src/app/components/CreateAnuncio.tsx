@@ -4,6 +4,8 @@ import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
+import { toast } from "sonner";
+import { Checkbox } from "@/components/ui/checkbox";
 
 const CreateAnuncio = () => {
   const [titulo, setTitulo] = useState("");
@@ -18,9 +20,19 @@ const CreateAnuncio = () => {
     setMessage(null);
 
     try {
+      const token = localStorage.getItem("authToken");
+      if (!token) {
+        toast.error("Token de autorização não encontrado. Faça login novamente.");
+        setLoading(false);
+        return;
+      }
+
       const res = await fetch("https://fabrica-kqdb.onrender.com/api/ad/", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
         body: JSON.stringify({ titulo, urlYoutube, ativo }),
       });
 
@@ -30,13 +42,14 @@ const CreateAnuncio = () => {
       }
 
       await res.json();
-      setMessage("Anúncio criado com sucesso.");
+      toast.success("Anúncio criado com sucesso.");
       setTitulo("");
       setUrlYoutube("");
       setAtivo(true);
     } catch (err) {
-      setMessage(
-        "Erro ao criar anúncio: " + (err instanceof Error ? err.message : String(err))
+      toast.error(
+        "Erro ao criar anúncio: " +
+          (err instanceof Error ? err.message : String(err))
       );
     } finally {
       setLoading(false);
@@ -44,13 +57,13 @@ const CreateAnuncio = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="w-2/3 bg-white rounded-lg shadow-md p-4">
-      <h2 className="text-xl font-semibold mb-4 text-gray-700">ADICIONAR ANÚNCIO</h2>
-
-      <div className="flex items-center justify-center p-3 max-w-sm min-h-[200px] bg-gray-300 rounded-md shadow-sm mb-4">
-        Foto do Anúncio
-      </div>
-
+    <form
+      onSubmit={handleSubmit}
+      className="w-2/3 bg-white rounded-lg shadow-md p-4"
+    >
+      <h2 className="text-xl font-semibold mb-4 text-gray-700">
+        ADICIONAR ANÚNCIO
+      </h2>
       <div className="grid grid-cols-2 mt-5 gap-4">
         <div className="col-span-2">
           <Label className="mb-2" htmlFor="nomeAnuncio">
@@ -78,12 +91,11 @@ const CreateAnuncio = () => {
           />
         </div>
 
-        <div className="flex items-center col-span-2">
-          <Input
+        <div className="flex w-20 items-center col-span-2">
+          <Checkbox
             id="ativoAnuncio"
-            type="checkbox"
             checked={ativo}
-            onChange={(e) => setAtivo(e.target.checked)}
+            onCheckedChange={(checked: boolean) => setAtivo(checked)}
             className="mr-2"
           />
           <Label htmlFor="ativoAnuncio">Ativo</Label>
