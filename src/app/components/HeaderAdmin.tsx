@@ -41,7 +41,7 @@ const HeaderAdmin = ({}) => {
             onClick={() => router.push("/addPatient")}
           >
             <UserPlus />
-            Adicionar Paciente
+            Totem - Paciente
           </Button>
         </div>
         <Button
