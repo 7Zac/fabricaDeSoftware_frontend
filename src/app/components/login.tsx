@@ -36,7 +36,7 @@ const Login = () => {
           localStorage.setItem("authToken", data.token); // Armazenar o token
         }
         toast.success("Login bem-sucedido!");
-        if (data.admin === true) {
+        if (data.admin === "ADMIN") {
           router.push("/admin/home"); 
         } else {
           router.push("/triagem");
