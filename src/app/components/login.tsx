@@ -33,7 +33,9 @@ const Login = () => {
       if (response.ok) {
         const data = await response.json();
         if (data && data.token) {
-          localStorage.setItem("authToken", data.token); // Armazenar o token
+          localStorage.setItem("authToken", data.token); 
+          localStorage.setItem("userLogin", data.login);
+          localStorage.setItem("userId", data.id); 
         }
         toast.success("Login bem-sucedido!");
         if (data.admin === "ADMIN") {
