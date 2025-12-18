@@ -98,7 +98,7 @@ export default function Token() {
       const pacienteUuid = pacienteData.id;
 
       // 2. Criar Atendimento
-      const atendimentoResponse = await fetch(`https://fabrica-kqdb.onrender.com/api/setor/${setorUuid}/atentimento`, {
+      const atendimentoResponse = await fetch(`https://fabrica-kqdb.onrender.com/api/setor/${setorUuid}/atendimento`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
