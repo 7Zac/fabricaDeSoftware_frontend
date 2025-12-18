@@ -1,3 +1,5 @@
+"use client";
+
 import CreateSetor from "@/app/components/CreateSetor";
 import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
