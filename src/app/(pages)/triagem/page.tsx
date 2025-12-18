@@ -31,7 +31,7 @@ const TriagemPage = () => {
             >
               {/* Seção FILA */}
               <div className="w-1/3 bg-white rounded-lg shadow-md p-4">
-                <QueueList />
+                <QueueList setorUuid="triagem" />
               </div>
 
               {/* Seção PACIENTE */}
