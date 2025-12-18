@@ -41,7 +41,7 @@ const Login = () => {
         if (data.admin === "ADMIN") {
           router.push("/admin/home"); 
         } else {
-          router.push("/triagem");
+          router.push("/guiche");
         }
       } else {
         const errorData = await response.json();

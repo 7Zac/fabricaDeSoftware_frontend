@@ -35,7 +35,7 @@ const AddPatientPage = () => {
             >
               {/* Seção FILA */}
               <div className="w-1/3 bg-white rounded-lg shadow-md p-4">
-                <QueueList />
+                <QueueList setorUuid="guiche" />
               </div>
 
               {/* Seção PACIENTE */}
