@@ -1,16 +1,56 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { motion, AnimatePresence } from "framer-motion";
+import {
+  Select,
+  SelectContent,
+  SelectTrigger,
+  SelectValue,
+  SelectItem,
+} from "@/components/ui/select";
+
+interface Setor {
+  id: string;
+  nomeSetor: string;
+  isPrimeiroContato: boolean;
+  createdAt: string;
+  updatedAt: string;
+}
 
 export default function Token() {
+  const [setorUuid, setSetorUuid] = useState<string>("");
+  const [setores, setSetores] = useState<Setor[]>([]);
+
+  useEffect(() => {
+    const fetchSetores = async () => {
+      try {
+        const response = await fetch(
+          "https://fabrica-kqdb.onrender.com/api/setor"
+        );
+        if (!response.ok) {
+          throw new Error(`Erro HTTP! Status: ${response.status}`);
+        }
+        const data: Setor[] = await response.json();
+        setSetores(data);
+        if (data.length > 0) {
+          setSetorUuid(data[0].id);
+        }
+      } catch (error) {
+        console.error("Erro ao buscar setores:", error);
+      }
+    };
+    fetchSetores();
+  }, []);
   // Estados de tela: "inicio", "form" ou "senha"
   const [stage, setStage] = useState<"inicio" | "form" | "senha">("inicio");
   // Estados para os botões de seleção
   const [preferencial, setPreferencial] = useState<"sim" | "nao" | null>(null);
-  const [tipoAtendimento, setTipoAtendimento] = useState<"crianca" | "adulto" | null>(null);
+  const [tipoAtendimento, setTipoAtendimento] = useState<
+    "crianca" | "adulto" | null
+  >(null);
 
   return (
     <main className="flex flex-col items-center justify-center min-h-screen bg-gray-50 text-center px-4 relative overflow-hidden">
@@ -157,16 +197,21 @@ export default function Token() {
                 <label className="font-medium text-gray-700">
                   Qual setor do seu atendimento?
                 </label>
-                <select
-                  required
-                  className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#00B49F]"
+                <Select
+                  onValueChange={(value) => setSetorUuid(value)}
+                  value={setorUuid}
                 >
-                  <option value="">Selecione</option>
-                  <option value="clinico">Clínico Geral</option>
-                  <option value="pediatria">Pediatria</option>
-                  <option value="odontologia">Odontologia</option>
-                  <option value="ortopedia">Ortopedia</option>
-                </select>
+                  <SelectTrigger className="w-full">
+                    <SelectValue placeholder="Selecione um setor" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {setores.map((setor) => (
+                      <SelectItem key={setor.id} value={setor.id}>
+                        {setor.nomeSetor}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
               </div>
 
               <Button
