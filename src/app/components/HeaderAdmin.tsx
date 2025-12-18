@@ -109,7 +109,7 @@ const HeaderAdmin = () => {
           </Button>
           <Button
             className="bg-teal-500 hover:bg-teal-600 text-white "
-            onClick={() => router.push("/addPatient")}
+            onClick={() => router.push("/token")}
           >
             <UserPlus />
             Totem - Paciente
