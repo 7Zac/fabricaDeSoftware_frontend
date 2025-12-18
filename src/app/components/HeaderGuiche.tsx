@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
+import { useRouter } from "next/navigation";
 
 interface HeaderGuicheProps {
   activeTab: "G" | "S";
@@ -9,6 +10,15 @@ interface HeaderGuicheProps {
 }
 
 const HeaderGuiche = ({ activeTab, setActiveTab }: HeaderGuicheProps) => {
+  const router = useRouter();
+
+  const handleLogout = () => {
+    localStorage.removeItem("authToken");
+    localStorage.removeItem("userLogin");
+    localStorage.removeItem("userId");
+    router.push("/");
+  };
+
   return (
     <header className="flex items-center justify-between p-4 bg-white shadow-md">
       <div className="flex items-center space-x-2">
@@ -23,6 +33,7 @@ const HeaderGuiche = ({ activeTab, setActiveTab }: HeaderGuicheProps) => {
         <Button
           variant="outline"
           className="text-teal-600 border-teal-600 hover:bg-teal-50"
+          onClick={handleLogout}
         >
           Sair
         </Button>
